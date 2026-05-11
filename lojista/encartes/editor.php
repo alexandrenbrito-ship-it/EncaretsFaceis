@@ -358,8 +358,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">URL da Imagem</label>
-                        <input type="text" class="form-control" id="produto_imagem" placeholder="https://...">
+                        <label class="form-label">Imagem do Produto</label>
+                        <input type="text" class="form-control mb-2" id="produto_imagem" placeholder="Cole uma URL ou selecione da galeria">
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_selecionar_imagem">
+                            <i class="bi bi-images me-1"></i> Escolher da Galeria
+                        </button>
                     </div>
                     <hr>
                     <h6>Configuração do Balão</h6>
@@ -390,6 +393,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {
         </div>
     </div>
 
+    <div class="modal fade" id="modal_selecionar_imagem" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Selecionar Imagem da Galeria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <a href="/lojista/galeria/" target="_blank" class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-upload me-1"></i> Upload de novas imagens
+                        </a>
+                    </div>
+                    <div id="galeria_imagens" class="row g-2" style="max-height: 400px; overflow-y: auto;">
+                        <div class="col-12 text-center text-muted py-4">
+                            <div class="spinner-border spinner-border-sm me-2"></div>
+                            Carregando imagens...
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pickr/dist/pickr.min.js"></script>
     <script>
@@ -398,6 +428,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {
         if (!dadosEncarte.galeria) dadosEncarte.galeria = [];
         if (!dadosEncarte.cabecalho) dadosEncarte.cabecalho = {};
         if (!dadosEncarte.rodape) dadosEncarte.rodape = {};
+        
+        document.getElementById('modal_selecionar_imagem').addEventListener('show.bs.modal', function() {
+            const galleryDiv = document.getElementById('galeria_imagens');
+            galleryDiv.innerHTML = '<div class="col-12 text-center text-muted py-4"><div class="spinner-border spinner-border-sm me-2"></div> Carregando...</div>';
+            
+            fetch('/api/listar-galeria.php')
+            .then(r => r.json())
+            .then(data => {
+                if (data.sucesso && data.imagens.length > 0) {
+                    galleryDiv.innerHTML = data.imagens.map(img => `
+                        <div class="col-4 col-md-3 col-lg-2">
+                            <div class="position-relative border rounded p-1 cursor-pointer" 
+                                 style="cursor:pointer" 
+                                 onclick="selecionarImagem('${img.url}')"
+                                 data-bs-dismiss="modal">
+                                <img src="${img.url}" class="img-fluid rounded" style="height: 80px; object-fit: cover;">
+                                <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-0 hover-overlay" 
+                                     style="transition: all 0.2s"></div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    galleryDiv.innerHTML = '<div class="col-12 text-center text-muted py-4">' +
+                        '<i class="bi bi-images fs-1"></i><p class="mb-0">Nenhuma imagem na galeria</p>' +
+                        '<a href="/lojista/galeria/" target="_blank" class="btn btn-primary btn-sm mt-2">Upload de Imagens</a>' +
+                        '</div>';
+                }
+            })
+            .catch(err => {
+                galleryDiv.innerHTML = '<div class="col-12 text-center text-danger py-4">Erro ao carregar galeria</div>';
+            });
+        });
+        
+        function selecionarImagem(url) {
+            document.getElementById('produto_imagem').value = url;
+        }
         
         function atualizarPreview() {
             dadosEncarte.cabecalho = {
