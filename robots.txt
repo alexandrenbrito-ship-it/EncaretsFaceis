@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Bloquear áreas administrativas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /lojista/configuracoes
+
+# Bloquear install
+Disallow: /install/
+
+# Permitir landing e public
+Allow: /landing-page/
+Allow: /public/
+
+User-agent: Googlebot
+Allow: /public/
+
+Sitemap: /sitemap.xml
