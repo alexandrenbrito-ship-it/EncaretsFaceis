@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'u264329520_encartes');
 define('DB_USER', 'u264329520_encartes');
@@ -13,7 +16,8 @@ define('APP_ENV', 'production');
 define('SESSION_NAME', 'enc_session');
 define('SESSION_LIFETIME', 7200);
 
-define('UPLOAD_PATH', __DIR__ . '/../assets/uploads/');
+$basePath = dirname(__DIR__);
+define('UPLOAD_PATH', $basePath . '/assets/uploads/');
 define('UPLOAD_URL', APP_URL . '/assets/uploads/');
 define('UPLOAD_MAX_SIZE', 5 * 1024 * 1024);
 
@@ -24,4 +28,4 @@ define('MP_PUBLIC_KEY', '');
 define('MP_ACCESS_TOKEN', '');
 define('MP_MODO', 'sandbox');
 
-define('APP_DOMAIN', parse_url(APP_URL, PHP_URL_HOST));
+define('APP_DOMAIN', 'encartesfaceis.online');
