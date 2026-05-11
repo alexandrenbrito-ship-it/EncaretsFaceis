@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASE_PATH')) {
     define('BASE_PATH', '');
-    define('BASE_URL', 'https://seudominio.com');
+    define('BASE_URL', 'https://encartesfaceis.online');
 }
 
 if (file_exists(__DIR__ . '/config/config.php')) {

@@ -107,6 +107,9 @@ $usoPush = verificarLimite($pushEnviados, $limitePush);
                     <a href="notificacoes/index.php" class="nav-link">
                         <i class="bi bi-bell me-2"></i> Notificações
                     </a>
+                    <a href="galeria/index.php" class="nav-link">
+                        <i class="bi bi-images me-2"></i> Galeria de Imagens
+                    </a>
                     <hr>
                     <a href="login.php?logout=1" class="nav-link text-danger">
                         <i class="bi bi-box-arrow-right me-2"></i> Sair

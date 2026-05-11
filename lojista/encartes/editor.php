@@ -464,48 +464,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao'])) {
         }
 
         function adicionarProduto() {
-            const produto = {
-                id: Date.now().toString(),
-                nome: document.getElementById('produto_nome').value,
-                preco_original: document.getElementById('produto_preco_original').value,
-                preco_oferta: document.getElementById('produto_preco_oferta').value,
-                imagem: document.getElementById('produto_imagem').value,
-                balao: {
-                    cor: document.getElementById('produto_balao_cor').value,
-                    formato: document.getElementById('produto_balao_formato').value,
-                    texto: document.getElementById('produto_balao_texto').value
-                }
-            };
+            const produtoNome = document.getElementById('produto_nome').value.trim();
+            const produtoPrecoOferta = document.getElementById('produto_preco_oferta').value.trim();
 
-            if (!produto.nome || !produto.preco_oferta) {
-                alert('Preencha os campos obrigatórios');
+            if (!produtoNome || !produtoPrecoOferta) {
+                alert('Preencha o nome e o preço de oferta (campos obrigatórios)');
                 return;
             }
 
-            dadosEncarte.produtos.push(produto);
-            
             const formData = new FormData();
             formData.append('acao', 'salvar_produto');
-            formData.append('nome', produto.nome);
-            formData.append('preco_original', produto.preco_original);
-            formData.append('preco_oferta', produto.preco_oferta);
-            formData.append('imagem', produto.imagem);
-            formData.append('balao_cor', produto.balao.cor);
-            formData.append('balao_formato', produto.balao.formato);
-            formData.append('balao_texto', produto.balao.texto);
+            formData.append('encarte_id', '<?= $encarteId ?>');
+            formData.append('nome', produtoNome);
+            formData.append('preco_original', document.getElementById('produto_preco_original').value.trim());
+            formData.append('preco_oferta', produtoPrecoOferta);
+            formData.append('imagem', document.getElementById('produto_imagem').value.trim());
+            formData.append('balao_cor', document.getElementById('produto_balao_cor').value);
+            formData.append('balao_formato', document.getElementById('produto_balao_formato').value);
+            formData.append('balao_texto', document.getElementById('produto_balao_texto').value);
 
-            fetch('editor.php?id=<?= $encarteId ?>', { method: 'POST', body: formData })
+            fetch('/api/encarte-salvar.php', { method: 'POST', body: formData })
             .then(r => r.json())
             .then(data => {
                 if (data.sucesso) {
                     bootstrap.Modal.getInstance(document.getElementById('modal_produto')).hide();
                     location.reload();
                 } else {
-                    alert(data.mensagem || 'Erro ao salvar');
+                    alert(data.erro || 'Erro ao salvar produto');
                 }
             }).catch(err => {
                 console.error('Erro:', err);
-                alert('Erro ao salvar produto');
+                alert('Erro ao salvar produto. Verifique o console para detalhes.');
             });
         }
 

@@ -91,6 +91,7 @@ $configPwa = json_decode($lojista['config_pwa'] ?? '{"cor_primaria":"#2563eb","c
                     <a href="estatisticas/index.php" class="nav-link"><i class="bi bi-graph-up me-2"></i> Estatísticas</a>
                     <a href="notificacoes/index.php" class="nav-link"><i class="bi bi-bell me-2"></i> Notificações</a>
                     <a href="configuracoes.php" class="nav-link active"><i class="bi bi-gear me-2"></i> Configurações</a>
+                    <a href="galeria/index.php" class="nav-link"><i class="bi bi-images me-2"></i> Galeria</a>
                 </nav>
             </div>
             <div class="col-md-10 p-4">
