@@ -4,7 +4,7 @@ class LojistAuth {
         session_start();
         
         if (!isset($_SESSION['lojista_id'])) {
-            header('Location: /encartes/lojista/login.php');
+            header('Location: /lojista/login.php');
             exit;
         }
     }
@@ -30,7 +30,7 @@ class LojistAuth {
         session_start();
         
         if (!isset($_SESSION['lojista_id'])) {
-            header('Location: /encartes/lojista/login.php');
+            header('Location: /lojista/login.php');
             exit;
         }
     }

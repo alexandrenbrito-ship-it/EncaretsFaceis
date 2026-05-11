@@ -96,7 +96,7 @@ class AuthController {
 
     public static function logout(): void {
         session_destroy();
-        header('Location: /encartes/');
+        header('Location: /');
         exit;
     }
 

@@ -137,8 +137,8 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                 <i class="bi bi-collection text-primary"></i> Encartes Pro
             </a>
             <div class="d-flex gap-2">
-                <a href="/encartes/lojista/login.php" class="btn btn-outline-primary">Login</a>
-                <a href="/encartes/lojista/registro.php" class="btn btn-primary">Começar Grátis</a>
+                <a href="/lojista/login.php" class="btn btn-outline-primary">Login</a>
+                <a href="/lojista/registro.php" class="btn btn-primary">Começar Grátis</a>
             </div>
         </div>
     </nav>
@@ -155,7 +155,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                         Tudo em uma plataforma completa e fácil de usar.
                     </p>
                     <div class="d-flex gap-3">
-                        <a href="/encartes/lojista/registro.php" class="btn btn-light btn-lg">
+                        <a href="/lojista/registro.php" class="btn btn-light btn-lg">
                             <i class="bi bi-rocket"></i> Criar Conta Grátis
                         </a>
                         <a href="#como-funciona" class="btn btn-outline-light btn-lg">
@@ -249,7 +249,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                                             </li>
                                         <?php endif; ?>
                                     </ul>
-                                    <a href="/encartes/lojista/registro.php?plano=<?= $plano['id'] ?>" class="btn <?= $plano['destaque'] ? 'btn-primary' : 'btn-outline-primary' ?> w-100">
+                                    <a href="/lojista/registro.php?plano=<?= $plano['id'] ?>" class="btn <?= $plano['destaque'] ? 'btn-primary' : 'btn-outline-primary' ?> w-100">
                                         Assinar Agora
                                     </a>
                                 </div>
@@ -270,7 +270,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                                     <li class="mb-2"><i class="bi bi-check text-success me-2"></i> 500 notificações/mês</li>
                                     <li class="mb-2"><i class="bi bi-check text-success me-2"></i> Mapa de clientes</li>
                                 </ul>
-                                <a href="/encartes/lojista/registro.php" class="btn btn-outline-primary w-100">Assinar</a>
+                                <a href="/lojista/registro.php" class="btn btn-outline-primary w-100">Assinar</a>
                             </div>
                         </div>
                     </div>
@@ -288,7 +288,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                                     <li class="mb-2"><i class="bi bi-check text-success me-2"></i> Mapa de clientes</li>
                                     <li class="mb-2"><i class="bi bi-check text-success me-2"></i> Estatísticas avançadas</li>
                                 </ul>
-                                <a href="/encartes/lojista/registro.php" class="btn btn-primary w-100">Assinar Agora</a>
+                                <a href="/lojista/registro.php" class="btn btn-primary w-100">Assinar Agora</a>
                             </div>
                         </div>
                     </div>
@@ -306,7 +306,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                                     <li class="mb-2"><i class="bi bi-check text-success me-2"></i> Tudo do Profissional</li>
                                     <li class="mb-2"><i class="bi bi-check text-success me-2"></i> Exportação de dados</li>
                                 </ul>
-                                <a href="/encartes/lojista/registro.php" class="btn btn-outline-primary w-100">Assinar</a>
+                                <a href="/lojista/registro.php" class="btn btn-outline-primary w-100">Assinar</a>
                             </div>
                         </div>
                     </div>
@@ -319,7 +319,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
         <div class="container py-5 text-center">
             <h2 class="fw-bold mb-3">Pronto para começar?</h2>
             <p class="mb-4">Crie sua conta grátis e tenha 7 dias de período trial</p>
-            <a href="/encartes/lojista/registro.php" class="btn btn-light btn-lg">
+            <a href="/lojista/registro.php" class="btn btn-light btn-lg">
                 <i class="bi bi-rocket"></i> Criar Conta Grátis
             </a>
         </div>
@@ -335,7 +335,7 @@ if (file_exists(__DIR__ . '/../config/config.php')) {
                     <p class="text-white-50">Encartes digitais para seu negócio</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <a href="/encartes/admin/login.php" class="text-white-50 text-decoration-none">Painel Admin</a>
+                    <a href="/admin/login.php" class="text-white-50 text-decoration-none">Painel Admin</a>
                 </div>
             </div>
             <hr>

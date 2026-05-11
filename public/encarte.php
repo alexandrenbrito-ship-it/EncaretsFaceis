@@ -28,7 +28,7 @@ if ($encarteId && $subdominio) {
 }
 
 if (!$encarte) {
-    header('Location: /encartes/public/');
+    header('Location: /public/');
     exit;
 }
 
@@ -42,7 +42,7 @@ $configPwa = json_decode($lojista['config_pwa'] ?? '{"cor_primaria":"#2563eb"}',
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($encarte['titulo']) ?> - <?= htmlspecialchars($lojista['nome_loja']) ?></title>
     <meta name="theme-color" content="<?= $configPwa['cor_primaria'] ?? '#2563eb' ?>">
-    <link rel="manifest" href="/encartes/public/manifest.json.php?s=<?= $subdominio ?>">
+    <link rel="manifest" href="/public/manifest.json.php?s=<?= $subdominio ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
@@ -122,7 +122,7 @@ $configPwa = json_decode($lojista['config_pwa'] ?? '{"cor_primaria":"#2563eb"}',
 <body>
     <nav class="navbar navbar-dark" style="background: var(--primary)">
         <div class="container">
-            <a class="navbar-brand" href="/encartes/public/?s=<?= $subdominio ?>">
+            <a class="navbar-brand" href="/public/?s=<?= $subdominio ?>">
                 <i class="bi bi-arrow-left"></i> Voltar
             </a>
             <span class="text-white"><?= htmlspecialchars($lojista['nome_loja']) ?></span>

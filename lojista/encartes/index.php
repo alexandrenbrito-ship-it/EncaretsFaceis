@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../src/Models/Encarte.php';
 
 if (!isset($_SESSION['lojista_id'])) {
-    header('Location: /encartes/lojista/login.php');
+    header('Location: /lojista/login.php');
     exit;
 }
 
@@ -49,7 +49,7 @@ $estatisticas = $encarteModel->getEstatisticas($lojistaId);
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand text-primary fw-bold" href="/encartes/lojista/">
+            <a class="navbar-brand text-primary fw-bold" href="/lojista/">
                 <i class="bi bi-collection"></i> Encartes Pro
             </a>
             <div class="d-flex align-items-center">
@@ -161,7 +161,7 @@ $estatisticas = $encarteModel->getEstatisticas($lojistaId);
                                         <i class="bi bi-pencil"></i> Editar
                                     </a>
                                     <?php if ($encarte['publicado']): ?>
-                                        <a href="/encartes/public/?s=<?= $encarte['subdominio'] ?>&e=<?= $encarte['slug'] ?>" 
+                                        <a href="/public/?s=<?= $encarte['subdominio'] ?>&e=<?= $encarte['slug'] ?>" 
                                            target="_blank" class="btn btn-outline-success btn-sm">
                                             <i class="bi bi-box-arrow-up-right"></i> Ver
                                         </a>

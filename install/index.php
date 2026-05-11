@@ -1,6 +1,6 @@
 <?php
 if (file_exists(__DIR__ . '/installed.lock')) {
-    header('Location: /encartes/admin/');
+    header('Location: /admin/');
     exit;
 }
 ?>
@@ -212,7 +212,7 @@ if (file_exists(__DIR__ . '/installed.lock')) {
                                     <p class="mb-2"><strong>E-mail:</strong> <span id="admin-email"></span></p>
                                     <p class="mb-0"><strong>Senha:</strong> A senha definida na instalação</p>
                                 </div>
-                                <a href="/encartes/admin/" class="btn btn-success mt-3">
+                                <a href="/admin/" class="btn btn-success mt-3">
                                     <i class="bi bi-box-arrow-in-right"></i> Acessar Painel Admin
                                 </a>
                             </div>

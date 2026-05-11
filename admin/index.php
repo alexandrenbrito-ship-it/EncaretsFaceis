@@ -103,7 +103,7 @@ $lojistasTrial = $stmt->fetch()['trial'];
                         <i class="bi bi-layers me-2"></i> Templates
                     </a>
                     <hr class="border-secondary mx-3">
-                    <a href="/encartes/lojista/login.php" class="nav-link" target="_blank">
+                    <a href="/lojista/login.php" class="nav-link" target="_blank">
                         <i class="bi bi-box-arrow-up-right me-2"></i> Ver Vitrine
                     </a>
                     <a href="login.php?logout=1" class="nav-link text-danger">

@@ -7,7 +7,7 @@ require_once __DIR__ . '/../src/Models/Lojista.php';
 require_once __DIR__ . '/../src/Models/Plano.php';
 
 if (!isset($_SESSION['lojista_id'])) {
-    header('Location: /encartes/lojista/login.php');
+    header('Location: /lojista/login.php');
     exit;
 }
 

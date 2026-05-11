@@ -18,7 +18,7 @@ http_response_code(404);
         <i class="bi bi-exclamation-triangle text-warning" style="font-size: 4rem;"></i>
         <h2 class="mt-4">Página Não Encontrada</h2>
         <p class="text-white-50">A página que você procura não existe ou foi movida.</p>
-        <a href="/encartes/admin/" class="btn btn-primary mt-3">Ir para Dashboard</a>
+        <a href="/admin/" class="btn btn-primary mt-3">Ir para Dashboard</a>
     </div>
 </body>
 </html>

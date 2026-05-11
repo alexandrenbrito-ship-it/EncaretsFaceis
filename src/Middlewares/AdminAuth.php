@@ -4,7 +4,7 @@ class AdminAuth {
         session_start();
         
         if (!isset($_SESSION['admin_id'])) {
-            header('Location: /encartes/admin/login.php');
+            header('Location: /admin/login.php');
             exit;
         }
     }
@@ -25,7 +25,7 @@ class AdminAuth {
         session_start();
         
         if (!isset($_SESSION['admin_id'])) {
-            header('Location: /encartes/admin/login.php');
+            header('Location: /admin/login.php');
             exit;
         }
     }

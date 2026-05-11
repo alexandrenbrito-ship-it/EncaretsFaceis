@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../config/database.php';
 
 if (!isset($_SESSION['lojista_id'])) {
-    header('Location: /encartes/lojista/login.php');
+    header('Location: /lojista/login.php');
     exit;
 }
 
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <nav class="nav flex-column p-2">
                     <a href="../index.php" class="nav-link"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-                    <a href="../encartes/index.php" class="nav-link"><i class="bi bi-file-earmark-post me-2"></i> Encartes</a>
+                    <a href="../index.php" class="nav-link"><i class="bi bi-file-earmark-post me-2"></i> Encartes</a>
                     <a href="../mapa/index.php" class="nav-link"><i class="bi bi-geo-alt me-2"></i> Mapa</a>
                     <a href="../estatisticas/index.php" class="nav-link"><i class="bi bi-graph-up me-2"></i> Estatísticas</a>
                     <a href="index.php" class="nav-link active"><i class="bi bi-bell me-2"></i> Notificações</a>

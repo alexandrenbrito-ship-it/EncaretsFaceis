@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../src/Models/Encarte.php';
 require_once __DIR__ . '/../../src/Models/Template.php';
 
 if (!isset($_SESSION['lojista_id'])) {
-    header('Location: /encartes/lojista/login.php');
+    header('Location: /lojista/login.php');
     exit;
 }
 
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand text-primary fw-bold" href="/encartes/lojista/">
+            <a class="navbar-brand text-primary fw-bold" href="/lojista/">
                 <i class="bi bi-collection"></i> Encartes Pro
             </a>
             <a href="index.php" class="btn btn-outline-secondary btn-sm">

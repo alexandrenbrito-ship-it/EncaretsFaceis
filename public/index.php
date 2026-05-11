@@ -49,7 +49,7 @@ $configPwa = json_decode($lojista['config_pwa'] ?? '{"cor_primaria":"#2563eb","c
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $lojista ? htmlspecialchars($lojista['nome_loja']) : 'Loja' ?> - Encartes</title>
     <meta name="theme-color" content="<?= $configPwa['cor_primaria'] ?? '#2563eb' ?>">
-    <link rel="manifest" href="/encartes/public/manifest.json.php?s=<?= $subdominio ?>">
+    <link rel="manifest" href="/public/manifest.json.php?s=<?= $subdominio ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
@@ -171,7 +171,7 @@ $configPwa = json_decode($lojista['config_pwa'] ?? '{"cor_primaria":"#2563eb","c
 
         <script>
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/encartes/public/service-worker.js.php?s=<?= $subdominio ?>');
+                navigator.serviceWorker.register('/public/service-worker.js.php?s=<?= $subdominio ?>');
             }
 
             async function subscribePush() {
