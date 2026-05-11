@@ -2,8 +2,6 @@
 session_start();
 require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../config/database.php';
-require_once __DIR__ . '/../../src/Models/Lojista.php';
-require_once __DIR__ . '/../../src/Middlewares/LimitCheck.php';
 
 if (!isset($_SESSION['lojista_id'])) {
     header('Location: /lojista/login.php');
@@ -11,12 +9,13 @@ if (!isset($_SESSION['lojista_id'])) {
 }
 
 $lojistaId = $_SESSION['lojista_id'];
-$lojistaModel = new Lojista();
-$lojista = $lojistaModel->find($lojistaId);
 
-$planoModel = new \Src\Models\Plano();
-$plano = $planoModel->find($lojista['plano_id']);
-$limiteImagens = $plano['limite_imagens_por_galeria'] ?? 10;
+$db = Database::getConnection();
+$stmt = $db->prepare("SELECT l.*, p.limite_imagens_por_galeria FROM enc_lojistas l JOIN enc_planos p ON l.plano_id = p.id WHERE l.id = ?");
+$stmt->execute([$lojistaId]);
+$lojista = $stmt->fetch();
+
+$limiteImagens = $lojista['limite_imagens_por_galeria'] ?? 10;
 
 $uploadPath = __DIR__ . '/../../assets/uploads/lojista_' . $lojistaId;
 $uploadUrl = UPLOAD_URL . 'lojista_' . $lojistaId;

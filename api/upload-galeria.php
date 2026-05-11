@@ -4,8 +4,6 @@ header('Content-Type: application/json');
 
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../src/Models/Lojista.php';
-require_once __DIR__ . '/../src/Middlewares/LimitCheck.php';
 
 if (!isset($_SESSION['lojista_id'])) {
     echo json_encode(['sucesso' => false, 'erro' => 'Não autenticado']);
@@ -13,17 +11,18 @@ if (!isset($_SESSION['lojista_id'])) {
 }
 
 $lojistaId = $_SESSION['lojista_id'];
-$lojistaModel = new Lojista();
-$lojista = $lojistaModel->find($lojistaId);
+
+$db = Database::getConnection();
+$stmt = $db->prepare("SELECT l.*, p.limite_imagens_por_galeria FROM enc_lojistas l JOIN enc_planos p ON l.plano_id = p.id WHERE l.id = ?");
+$stmt->execute([$lojistaId]);
+$lojista = $stmt->fetch();
 
 if (!$lojista) {
     echo json_encode(['sucesso' => false, 'erro' => 'Lojista não encontrado']);
     exit;
 }
 
-$planoModel = new \Src\Models\Plano();
-$plano = $planoModel->find($lojista['plano_id']);
-$limiteImagens = $plano['limite_imagens_por_galeria'] ?? 10;
+$limiteImagens = $lojista['limite_imagens_por_galeria'] ?? 10;
 
 $uploadPath = __DIR__ . '/../../assets/uploads/lojista_' . $lojistaId;
 
