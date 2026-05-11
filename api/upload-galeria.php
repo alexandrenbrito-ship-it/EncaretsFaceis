@@ -2,8 +2,8 @@
 session_start();
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/database.php';
+error_reporting(0);
+ini_set('display_errors', 0);
 
 if (!isset($_SESSION['lojista_id'])) {
     echo json_encode(['sucesso' => false, 'erro' => 'Não autenticado']);
@@ -12,90 +12,37 @@ if (!isset($_SESSION['lojista_id'])) {
 
 $lojistaId = $_SESSION['lojista_id'];
 
-$db = Database::getConnection();
-$stmt = $db->prepare("SELECT l.*, p.limite_imagens_por_galeria FROM enc_lojistas l JOIN enc_planos p ON l.plano_id = p.id WHERE l.id = ?");
-$stmt->execute([$lojistaId]);
-$lojista = $stmt->fetch();
-
-if (!$lojista) {
-    echo json_encode(['sucesso' => false, 'erro' => 'Lojista não encontrado']);
-    exit;
-}
-
-$limiteImagens = $lojista['limite_imagens_por_galeria'] ?? 10;
-
-$uploadPath = __DIR__ . '/../../assets/uploads/lojista_' . $lojistaId;
+$baseDir = '/home/u264329520/domains/encartesfaceis.online/public_html';
+$uploadPath = $baseDir . '/assets/uploads/lojista_' . $lojistaId;
 
 if (!is_dir($uploadPath)) {
-    mkdir($uploadPath, 0755, true);
-}
-
-$allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-$allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-$maxSize = 5 * 1024 * 1024;
-
-$uploaded = [];
-$errors = [];
-
-$qtdAtual = count(scandir($uploadPath)) - 2;
-
-if ($limiteImagens !== -1 && $qtdAtual >= $limiteImagens) {
-    echo json_encode([
-        'sucesso' => false, 
-        'erro' => "Limite de {$limiteImagens} imagens atingido. Faça upgrade do seu plano para continuar."
-    ]);
-    exit;
-}
-
-if (isset($_FILES['imagens'])) {
-    $files = $_FILES['imagens'];
-    $count = count($files['name']);
-    
-    for ($i = 0; $i < $count; $i++) {
-        if ($files['error'][$i] !== UPLOAD_ERR_OK) {
-            $errors[] = "Erro ao enviar arquivo: " . $files['name'][$i];
-            continue;
-        }
-
-        if ($files['size'][$i] > $maxSize) {
-            $errors[] = "Arquivo muito grande: " . $files['name'][$i] . " (máx 5MB)";
-            continue;
-        }
-
-        $mimeType = mime_content_type($files['tmp_name'][$i]);
-        if (!in_array($mimeType, $allowedTypes)) {
-            $errors[] = "Tipo de arquivo não permitido: " . $files['name'][$i];
-            continue;
-        }
-
-        $extension = strtolower(pathinfo($files['name'][$i], PATHINFO_EXTENSION));
-        if (!in_array($extension, $allowedExtensions)) {
-            $errors[] = "Extensão não permitida: " . $files['name'][$i];
-            continue;
-        }
-
-        $newFilename = uniqid('img_') . '_' . time() . '.' . $extension;
-        $destination = $uploadPath . '/' . $newFilename;
-
-        if (move_uploaded_file($files['tmp_name'][$i], $destination)) {
-            $uploaded[] = [
-                'nome' => $newFilename,
-                'url' => UPLOAD_URL . 'lojista_' . $lojistaId . '/' . $newFilename
-            ];
-        } else {
-            $errors[] = "Erro ao mover arquivo: " . $files['name'][$i];
-        }
+    if (!mkdir($uploadPath, 0755, true)) {
+        echo json_encode(['sucesso' => false, 'erro' => 'Não criou pasta']);
+        exit;
     }
 }
 
-if (empty($uploaded) && !empty($errors)) {
-    echo json_encode(['sucesso' => false, 'erro' => implode('. ', $errors)]);
+if (!isset($_FILES['imagens'])) {
+    echo json_encode(['sucesso' => false, 'erro' => 'Nenhum arquivo']);
     exit;
 }
 
-echo json_encode([
-    'sucesso' => true,
-    'mensagem' => count($uploaded) . ' imagem(ns) enviada(s)',
-    'uploaded' => $uploaded,
-    'errors' => $errors
-]);
+$files = $_FILES['imagens'];
+$uploaded = 0;
+
+for ($i = 0; $i < count($files['name']); $i++) {
+    if ($files['error'][$i] !== UPLOAD_ERR_OK) continue;
+    if ($files['size'][$i] > 5 * 1024 * 1024) continue;
+    
+    $ext = strtolower(pathinfo($files['name'][$i], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) continue;
+    
+    $newFilename = 'img_' . time() . '_' . rand(100,999) . '.' . $ext;
+    $destination = $uploadPath . '/' . $newFilename;
+    
+    if (move_uploaded_file($files['tmp_name'][$i], $destination)) {
+        $uploaded++;
+    }
+}
+
+echo json_encode(['sucesso' => true, 'mensagem' => "$uploaded imagem(ns)"]);
